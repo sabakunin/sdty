@@ -28,14 +28,14 @@
   .liquid-glow { box-shadow: 0 0 40px rgba(148,211,193,0.08); }
   .compass-ring { background: radial-gradient(circle, rgba(148,211,193,0.05) 0%, rgba(0,23,19,0) 70%); }
   .liquid-thumb::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; background: #e9c349; border-radius: 50%; cursor: pointer; box-shadow: 0 0 15px rgba(233,195,73,0.4); }
-
+ 
   /* Page transitions */
   .page { display: none; }
   .page.active { display: block; }
 </style>
 </head>
 <body class="bg-background text-on-surface min-h-screen pb-32">
-
+ 
 <!-- TopAppBar -->
 <header class="fixed top-0 w-full z-50 bg-[#001713]/40 backdrop-blur-xl flex justify-between items-center px-6 h-16 shadow-[0_0_20px_rgba(148,211,193,0.05)]">
   <div class="flex items-center gap-3">
@@ -51,7 +51,7 @@
     </div>
   </div>
 </header>
-
+ 
 <!-- ===== PAGE: HOME ===== -->
 <div id="page-home" class="page active pt-24 px-6 max-w-2xl mx-auto space-y-8">
   <section class="relative group">
@@ -79,7 +79,7 @@
       </div>
     </div>
   </section>
-
+ 
   <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <div class="glass-panel p-6 rounded-lg md:col-span-2 relative overflow-hidden group">
       <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
@@ -92,7 +92,7 @@
       </div>
     </div>
   </section>
-
+ 
   <section class="space-y-4">
     <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-outline px-2">Сегодняшний график</h3>
     <div class="space-y-3">
@@ -144,7 +144,7 @@
     </div>
   </section>
 </div>
-
+ 
 <!-- ===== PAGE: QIBLA ===== -->
 <div id="page-qibla" class="page pt-24 pb-32 px-6 max-w-lg mx-auto">
   <div class="mb-10 text-center">
@@ -207,7 +207,7 @@
   </div>
   <p class="mt-12 text-center text-outline text-sm leading-relaxed px-4">Для наиболее точного определения направления Киблы, держите устройство горизонтально и вдали от металлических предметов.</p>
 </div>
-
+ 
 <!-- ===== PAGE: NOTIFICATIONS ===== -->
 <div id="page-notifications" class="page pt-24 px-6 max-w-2xl mx-auto space-y-8">
   <div class="mb-10">
@@ -312,7 +312,7 @@
     </div>
   </section>
 </div>
-
+ 
 <!-- ===== PAGE: SETTINGS ===== -->
 <div id="page-settings" class="page pt-24 px-6 max-w-2xl mx-auto space-y-10">
   <section class="space-y-6">
@@ -379,7 +379,7 @@
     <button class="w-full py-5 rounded-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-extrabold text-lg shadow-[0_10px_30px_rgba(148,211,193,0.2)] active:scale-95 transition-all duration-400">Сохранить изменения</button>
   </div>
 </div>
-
+ 
 <!-- ===== BOTTOM NAV ===== -->
 <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-4 pb-8 px-4 bg-[#001713]/60 backdrop-blur-md rounded-t-[3rem] border-t border-[#94d3c1]/10 shadow-[0_-10px_40px_rgba(0,23,19,0.5)]">
   <button onclick="showPage('home')" id="nav-home" class="flex flex-col items-center justify-center transition-all duration-300 active:scale-90">
@@ -399,11 +399,11 @@
     <span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-widest mt-1">Settings</span>
   </button>
 </nav>
-
+ 
 <script>
   const pages = ['home','qibla','notifications','settings'];
   const icons = { home:'home', qibla:'explore', notifications:'notifications', settings:'settings' };
-
+ 
   function showPage(name) {
     pages.forEach(p => {
       document.getElementById('page-'+p).classList.remove('active');
@@ -414,21 +414,21 @@
       nav.style.transform = 'scale(1)';
       icon.style.fontVariationSettings = "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
     });
-
+ 
     document.getElementById('page-'+name).classList.add('active');
     window.scrollTo(0,0);
-
+ 
     const activeNav = document.getElementById('nav-'+name);
     const activeIcon = activeNav.querySelector('.nav-icon');
     activeNav.style.color = '#e9c349';
     activeNav.style.opacity = '1';
     activeNav.style.transform = 'scale(1.1)';
     activeIcon.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
-
+ 
     // header subtitle only on home
     document.getElementById('header-subtitle').style.display = name === 'home' ? 'block' : 'none';
   }
-
+ 
   // Init
   showPage('home');
 </script>
