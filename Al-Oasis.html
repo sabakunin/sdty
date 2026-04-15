@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#001713", "error": "#ffb4ab", "on-primary-container": "#7ebdac", "tertiary-container": "#004d42", "on-primary-fixed-variant": "#065043", "surface-tint": "#94d3c1", "surface": "#001713", "surface-container-highest": "#193a35", "on-tertiary-container": "#69c0ae", "on-secondary-container": "#342800", "surface-container-low": "#00201c", "secondary-fixed": "#ffe088", "on-primary-fixed": "#00201a", "inverse-surface": "#c6eae2", "on-surface-variant": "#bfc9c4", "on-tertiary": "#00382f", "secondary-container": "#af8d11", "on-tertiary-fixed": "#00201b", "secondary-fixed-dim": "#e9c349", "secondary": "#e9c349", "inverse-on-surface": "#143630", "tertiary-fixed": "#9bf3df", "on-error-container": "#ffdad6", "inverse-primary": "#29695b", "surface-container": "#012520", "tertiary-fixed-dim": "#7fd6c3", "surface-bright": "#1e3f39", "outline": "#89938f", "surface-container-lowest": "#00110e", "tertiary": "#7fd6c3", "primary-container": "#004d40", "on-error": "#690005", "surface-dim": "#001713", "primary-fixed-dim": "#94d3c1", "surface-container-high": "#0c2f2a", "primary-fixed": "#afefdd", "on-secondary": "#3c2f00", "surface-variant": "#193a35", "on-tertiary-fixed-variant": "#005045", "on-background": "#c6eae2", "on-primary": "#00382e", "on-secondary-fixed": "#241a00", "on-secondary-fixed-variant": "#574500", "error-container": "#93000a", "primary": "#94d3c1", "on-surface": "#c6eae2", "outline-variant": "#3f4945"
+          },
+          borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+          fontFamily: { "headline": ["Manrope"], "body": ["Manrope"], "label": ["Manrope"] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #001713;
+      min-height: max(884px, 100dvh);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .glass-card {
+      background: rgba(0, 77, 64, 0.4);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(148, 211, 193, 0.1);
+    }
+
+    .glass-panel {
+      background: rgba(0, 77, 64, 0.4);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(148, 211, 193, 0.1);
+    }
+
+    .liquid-glow {
+      box-shadow: 0 0 40px rgba(148, 211, 193, 0.08);
+    }
+
+    .compass-ring {
+      background: radial-gradient(circle, rgba(148, 211, 193, 0.05) 0%, rgba(0, 23, 19, 0) 70%);
+    }
+
+    .liquid-thumb::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      background: #e9c349;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(233, 195, 73, 0.4);
+    }
+
+    /* Page transitions */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface min-h-screen pb-32">
+
+  <!-- TopAppBar -->
+  <header
+    class="fixed top-0 w-full z-50 bg-[#001713]/40 backdrop-blur-xl flex justify-between items-center px-6 h-16 shadow-[0_0_20px_rgba(148,211,193,0.05)]">
+    <div class="flex items-center gap-3">
+      <button
+        class="text-[#94d3c1] hover:bg-[#004d40]/30 transition-colors duration-400 p-2 rounded-full active:scale-95">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <span class="text-xl font-extrabold text-[#c6eae2] tracking-tighter">Al-Oasis</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <span id="header-subtitle" class="text-sm font-bold text-[#94d3c1] hidden">Расписание намазов</span>
+      <div class="w-10 h-10 rounded-full border border-primary/20 p-0.5">
+        <img alt="User" class="w-full h-full rounded-full object-cover"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6dWOP3FGvd4ksgzIk8FdEcqPR4YbpRPcN_Wx1biVRe842zGhRgKTOmhCrn3rWm-Mj-_4qKpp1ZPwFLIUCsgZmb20ED0DQm5dBXcRiZd00jL-ujcmYNeLmi_qFxdlW77M5KOZhVB8b4zY_J11S6wJjJBmAPvTIq0uJW-RPdAxIsNJeKmAWUrJOR3BR2nrskM5rFqcNQLUCuKUpgmsuskYajNGTd7x1VvRkd1pjiIRG9TTVoak910C764twlbg2ddi6QLZsJ6jaZE4" />
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== PAGE: HOME ===== -->
+  <div id="page-home" class="page active pt-24 px-6 max-w-2xl mx-auto space-y-8">
+    <section class="relative group">
+      <div
+        class="absolute -inset-4 bg-primary/5 blur-3xl rounded-xl opacity-50 group-hover:opacity-100 transition-opacity">
+      </div>
+      <div class="glass-panel relative rounded-xl p-8 overflow-hidden">
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <p class="text-outline text-xs font-bold uppercase tracking-[0.2em] mb-1">Следующий намаз</p>
+            <h2 class="text-4xl font-extrabold text-on-surface tracking-tighter">Аср</h2>
+          </div>
+          <div class="text-right">
+            <p class="text-secondary font-bold text-lg">15:42</p>
+            <p class="text-outline-variant text-xs">Мекка (+3)</p>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2 mb-8">
+          <span class="text-6xl font-extrabold text-on-surface tracking-tighter">01:42</span>
+          <span class="text-primary font-bold text-xl">: 12</span>
+        </div>
+        <div class="w-full h-2 bg-surface-container-low rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-primary to-secondary w-3/4 rounded-full"></div>
+        </div>
+        <div class="flex justify-between mt-3 text-[10px] font-bold uppercase tracking-widest text-outline">
+          <span>Зухр</span><span>Аср</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="glass-panel p-6 rounded-lg md:col-span-2 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+          <span class="material-symbols-outlined text-8xl"
+            style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+        </div>
+        <div class="relative z-10">
+          <span
+            class="inline-block px-3 py-1 rounded-full bg-primary-container text-primary text-[10px] font-bold uppercase tracking-widest mb-4">Аят
+            дня</span>
+          <p class="text-on-surface text-lg font-medium italic leading-relaxed mb-4">«Воистину, за каждой тягостью
+            наступает облегчение.»</p>
+          <p class="text-outline text-xs font-bold tracking-tight">Сура 94 «Аль-Инширах», Аят 5</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-outline px-2">Сегодняшний график</h3>
+      <div class="space-y-3">
+        <div class="glass-panel flex items-center justify-between p-5 rounded-lg">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-primary-container/30 flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            </div>
+            <div>
+              <p class="font-bold text-on-surface">Фаджр</p>
+              <p class="text-xs text-outline">Утро</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-bold text-on-surface">04:12</p>
+            <p class="text-[10px] uppercase font-bold text-primary tracking-tighter">Выполнено</p>
+          </div>
+        </div>
+        <div class="glass-panel flex items-center justify-between p-5 rounded-lg">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-primary-container/30 flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            </div>
+            <div>
+              <p class="font-bold text-on-surface">Зухр</p>
+              <p class="text-xs text-outline">Полдень</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-bold text-on-surface">12:35</p>
+            <p class="text-[10px] uppercase font-bold text-primary tracking-tighter">Выполнено</p>
+          </div>
+        </div>
+        <div
+          class="bg-surface-container-high border border-primary/20 flex items-center justify-between p-6 rounded-lg scale-[1.02] shadow-[0_0_30px_rgba(148,211,193,0.1)]">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
+              <span class="material-symbols-outlined">schedule</span>
+            </div>
+            <div>
+              <p class="font-extrabold text-on-surface">Аср</p>
+              <p class="text-xs text-outline">Послеполуденный</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-bold text-secondary text-lg">15:42</p>
+            <p class="text-[10px] uppercase font-bold text-secondary tracking-widest">Следующий</p>
+          </div>
+        </div>
+        <div class="glass-panel flex items-center justify-between p-5 rounded-lg opacity-60">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-outline">
+              <span class="material-symbols-outlined">circle</span>
+            </div>
+            <div>
+              <p class="font-bold text-on-surface">Магриб</p>
+              <p class="text-xs text-outline">Закат</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-bold text-on-surface">18:52</p>
+            <p class="text-[10px] uppercase font-bold text-outline tracking-widest">Ожидание</p>
+          </div>
+        </div>
+        <div class="glass-panel flex items-center justify-between p-5 rounded-lg opacity-60">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-outline">
+              <span class="material-symbols-outlined">circle</span>
+            </div>
+            <div>
+              <p class="font-bold text-on-surface">Иша</p>
+              <p class="text-xs text-outline">Ночь</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-bold text-on-surface">20:15</p>
+            <p class="text-[10px] uppercase font-bold text-outline tracking-widest">Ожидание</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== PAGE: QIBLA ===== -->
+  <div id="page-qibla" class="page pt-24 pb-32 px-6 max-w-lg mx-auto">
+    <div class="mb-10 text-center">
+      <h2 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Кибла</h2>
+      <div class="flex items-center justify-center gap-2 text-outline text-sm font-medium">
+        <span class="material-symbols-outlined text-xs">location_on</span>Москва, Россия
+      </div>
+    </div>
+    <div class="relative aspect-square w-full mb-12 flex items-center justify-center">
+      <div class="absolute inset-0 compass-ring rounded-full animate-pulse"></div>
+      <div class="absolute w-[90%] h-[90%] rounded-full border border-primary/10"></div>
+      <div class="absolute w-[70%] h-[70%] rounded-full border border-primary/5"></div>
+      <div class="relative w-72 h-72 rounded-full glass-card flex items-center justify-center shadow-2xl">
+        <div class="absolute inset-4 rounded-full border-2 border-dashed border-outline/20"></div>
+        <div class="absolute top-4 font-bold text-xs text-outline tracking-widest">N</div>
+        <div class="absolute right-4 font-bold text-xs text-outline tracking-widest">E</div>
+        <div class="absolute bottom-4 font-bold text-xs text-outline tracking-widest">S</div>
+        <div class="absolute left-4 font-bold text-xs text-outline tracking-widest">W</div>
+        <div class="relative z-10 w-full h-full flex items-center justify-center rotate-[42deg]">
+          <div
+            class="absolute h-[45%] w-1.5 bg-secondary rounded-full bottom-1/2 origin-bottom shadow-[0_0_15px_rgba(233,195,73,0.5)]">
+            <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-secondary rotate-45 rounded-sm"></div>
+          </div>
+          <div class="absolute top-[5%] p-2 bg-secondary rounded-full shadow-lg">
+            <span class="material-symbols-outlined text-on-secondary-container text-xl"
+              style="font-variation-settings: 'FILL' 1;">mosque</span>
+          </div>
+        </div>
+        <div class="z-20 w-4 h-4 rounded-full bg-background border-2 border-primary shadow-inner"></div>
+      </div>
+      <div
+        class="absolute -bottom-4 bg-surface-container-highest px-6 py-3 rounded-xl glass-card flex items-center gap-3 liquid-glow">
+        <span class="material-symbols-outlined text-secondary">straighten</span>
+        <div>
+          <p class="text-[10px] uppercase tracking-widest text-outline font-bold">Расстояние</p>
+          <p class="text-on-surface font-extrabold">3,821 км</p>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="col-span-2 glass-card p-6 rounded-xl flex items-center justify-between">
+        <div>
+          <h3 class="text-outline text-xs font-bold uppercase tracking-widest mb-1">Точность сигнала</h3>
+          <p class="text-on-surface font-bold text-lg">Высокая точность</p>
+        </div>
+        <div class="flex gap-1 items-end">
+          <div class="w-1.5 h-4 bg-primary rounded-full"></div>
+          <div class="w-1.5 h-6 bg-primary rounded-full"></div>
+          <div class="w-1.5 h-8 bg-primary rounded-full"></div>
+          <div class="w-1.5 h-10 bg-primary rounded-full"></div>
+        </div>
+      </div>
+      <div class="glass-card p-5 rounded-xl">
+        <span class="material-symbols-outlined text-secondary mb-3 block">explore</span>
+        <h3 class="text-outline text-xs font-bold uppercase tracking-widest mb-1">Азимут</h3>
+        <p class="text-on-surface font-extrabold text-xl">192.4°</p>
+      </div>
+      <div class="glass-card p-5 rounded-xl">
+        <span class="material-symbols-outlined text-primary mb-3 block">my_location</span>
+        <h3 class="text-outline text-xs font-bold uppercase tracking-widest mb-1">Широта</h3>
+        <p class="text-on-surface font-extrabold text-xl">55.75° N</p>
+      </div>
+    </div>
+    <p class="mt-12 text-center text-outline text-sm leading-relaxed px-4">Для наиболее точного определения направления
+      Киблы, держите устройство горизонтально и вдали от металлических предметов.</p>
+  </div>
+
+  <!-- ===== PAGE: NOTIFICATIONS ===== -->
+  <div id="page-notifications" class="page pt-24 px-6 max-w-2xl mx-auto space-y-8">
+    <div class="mb-10">
+      <h2 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Уведомления</h2>
+      <p class="text-outline font-medium">Персонализируйте ваши духовные напоминания</p>
+    </div>
+    <section class="glass-card rounded-xl p-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-on-surface">Все уведомления</h3>
+          <p class="text-sm text-outline">Глобальное управление звуком</p>
+        </div>
+      </div>
+      <label class="relative inline-flex items-center cursor-pointer">
+        <input checked class="sr-only peer" type="checkbox" />
+        <div
+          class="w-14 h-8 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-secondary after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary/20">
+        </div>
+      </label>
+    </section>
+    <section class="glass-card rounded-xl p-6 space-y-6">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-lg">Громкость азана</h3>
+        <span class="text-secondary font-bold">85%</span>
+      </div>
+      <div class="relative w-full h-2 bg-surface-container-highest rounded-full flex items-center">
+        <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-secondary rounded-full"
+          style="width:85%"></div>
+        <input class="absolute w-full h-2 bg-transparent appearance-none cursor-pointer liquid-thumb" max="100" min="0"
+          type="range" value="85" />
+      </div>
+      <div class="flex justify-between text-xs text-outline font-bold uppercase tracking-widest">
+        <span>Без звука</span><span>Максимум</span>
+      </div>
+    </section>
+    <section class="space-y-4">
+      <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-outline px-2">Голос Муэдзина</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <button class="glass-card rounded-lg p-4 flex items-center gap-4 border-primary/40 bg-primary-container/20">
+          <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-secondary">
+            <img alt="Sheikh 1" class="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCirjYW8D77wNonwvfupSmSTEV6QvU8etcqIxBdeujKbDnxW_7r00-QGOgHXj1HcDHEINn9bG6VsrdCSBpaJip7rKlzMQ2cKquGWCa2ExXxMuoIMGUevKxNKZDRSqxWFlFCMCV7JxTmkYKPP24Gzt-22qXOAXqoCkkz-bh4BWkYH9qWA03gmwHZY55FyNLAxrSWmS_at2RDk5UJlcy8rsarxk3hO2WJzlZSa1YzlmqwrtsRI4ugElilXJddzjIBrKuF9Tyc7MGei-o" />
+          </div>
+          <div class="text-left">
+            <p class="font-bold text-on-surface">Мишари Рашид</p>
+            <p class="text-xs text-primary">Выбрано</p>
+          </div>
+          <span class="material-symbols-outlined ml-auto text-secondary"
+            style="font-variation-settings: 'FILL' 1;">check_circle</span>
+        </button>
+        <button
+          class="glass-card rounded-lg p-4 flex items-center gap-4 hover:bg-surface-container-highest transition-colors duration-400">
+          <div class="w-14 h-14 rounded-full overflow-hidden opacity-60">
+            <img alt="Sheikh 2" class="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnMTU-XY8f7k9UIIxtboe0E3E6AEMizVzaAxMh5HxNq2AyRTk9rr4CCYlszyEvRfqq0GSvsoy8jf-6jghU_-Dvv3zCrzHjk0rk_11jkYay-brSm3d9FnQYnxm2Co6ZRL4WztlpVgpfhbeqKtoaLzy6y0NR5gCqc3qIFU2r5Bk8G_1F1JpR8ROMyKbEjTmKkqcWBvp3TCHfg_XPHsJnAaczK3B1Q7yO05uL2M8XKw8ffb8W2798wGps1jzMOj_WZBzq3HauVYNtFpYY" />
+          </div>
+          <div class="text-left">
+            <p class="font-bold text-outline">Абдул Басит</p>
+            <p class="text-xs text-outline/50">Классический</p>
+          </div>
+        </button>
+      </div>
+    </section>
+    <section class="space-y-4 pb-8">
+      <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-outline px-2">Расписание молитв</h3>
+      <div class="space-y-3">
+        <div class="glass-card rounded-lg p-5 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined">wb_twilight</span></div>
+            <div>
+              <p class="font-bold">Фаджр</p>
+              <p class="text-xs text-outline">04:12 • Утренний азан</p>
+            </div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer scale-90">
+            <input checked class="sr-only peer" type="checkbox" />
+            <div
+              class="w-12 h-7 bg-surface-container-low border border-outline-variant/30 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-1 after:left-1 after:bg-outline after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary peer-checked:after:bg-on-primary">
+            </div>
+          </label>
+        </div>
+        <div class="glass-card rounded-lg p-5 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-secondary">
+              <span class="material-symbols-outlined">wb_sunny</span></div>
+            <div>
+              <p class="font-bold">Зухр</p>
+              <p class="text-xs text-outline">12:34 • Полуденный азан</p>
+            </div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer scale-90">
+            <input checked class="sr-only peer" type="checkbox" />
+            <div
+              class="w-12 h-7 bg-surface-container-low border border-outline-variant/30 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-1 after:left-1 after:bg-outline after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary peer-checked:after:bg-on-primary">
+            </div>
+          </label>
+        </div>
+        <div class="glass-card rounded-lg p-5 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-tertiary-container">
+              <span class="material-symbols-outlined">wb_sunny</span></div>
+            <div>
+              <p class="font-bold">Аср</p>
+              <p class="text-xs text-outline">16:15 • Послеполуденный азан</p>
+            </div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer scale-90">
+            <input checked class="sr-only peer" type="checkbox" />
+            <div
+              class="w-12 h-7 bg-surface-container-low border border-outline-variant/30 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-1 after:left-1 after:bg-outline after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary peer-checked:after:bg-on-primary">
+            </div>
+          </label>
+        </div>
+        <div class="glass-card rounded-lg p-5 flex items-center justify-between opacity-60">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-outline">
+              <span class="material-symbols-outlined">bedtime</span></div>
+            <div>
+              <p class="font-bold">Магриб</p>
+              <p class="text-xs text-outline">19:42 • Вечерний азан</p>
+            </div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer scale-90">
+            <input class="sr-only peer" type="checkbox" />
+            <div
+              class="w-12 h-7 bg-surface-container-low border border-outline-variant/30 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-1 after:left-1 after:bg-outline after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary peer-checked:after:bg-on-primary">
+            </div>
+          </label>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== PAGE: SETTINGS ===== -->
+  <div id="page-settings" class="page pt-24 px-6 max-w-2xl mx-auto space-y-10">
+    <section class="space-y-6">
+      <h2 class="text-4xl font-extrabold tracking-tight text-on-surface">Настройки</h2>
+      <div class="relative group">
+        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-outline">
+          <span class="material-symbols-outlined">search</span>
+        </div>
+        <input
+          class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all duration-400"
+          placeholder="Поиск города или региона..." type="text" />
+      </div>
+    </section>
+    <section class="space-y-4">
+      <h3 class="text-sm font-bold uppercase tracking-widest text-secondary">Популярные города</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div
+          class="relative h-40 rounded-xl overflow-hidden group cursor-pointer active:scale-95 transition-all duration-400">
+          <img
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGyi7hWsuZOfUMgzvvqg0cp_z97Pw7ytOFfGDPF7Tn9cG00WhGoKdOZJP-Zz7B7B6-hdQRvjMG3l2HA6BybjO3XgCFuC5A20nC6OThQhzW4NRSXZb_P8aVTMLmKoKA3vNCiNAxLXG0Xm_mkSttgzPDfIRZb5uJXb61S9U391kYxMhtw3Te4O2cu6ZJM_JPB3y-8Sw-_0xt4X0GGYle5SEtxcb4pEpoKV47KEXWg6TzGyVQ8c-IYsh3eAm32epR8kQTApdTlXkkMJU"
+            alt="Москва" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+          <div class="absolute bottom-4 left-4">
+            <p class="font-bold text-on-surface">Москва</p>
+            <p class="text-[10px] text-outline uppercase tracking-tight">Россия</p>
+          </div>
+        </div>
+        <div
+          class="relative h-40 rounded-xl overflow-hidden group cursor-pointer active:scale-95 transition-all duration-400">
+          <img
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjE8P1IE0WGzluL9_NWRVtHBvZcBl0jD5jkDCfv5JerGBNlsaO_CVpHyEEAyhTsf6ED5Jz0AYIl51jauVtOZ3isoTUbQDKxDj5ijiIbDeinWuq-GxEjv-3l-9_hhhUIuGEikdh8IIOIL0bx5M2MoedXuWakoe2PPwUGrOpGcon1IpXuK6CJY-_-6gVKzZ-czmnV5fkZi6zfSCJnBbeIoxo183dxW_GqlRgZ_83Gx1AasYA9pxHu5X5gH7qRrgm2QQwDWi7SUUGOrU"
+            alt="Казань" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+          <div class="absolute bottom-4 left-4">
+            <p class="font-bold text-on-surface">Казань</p>
+            <p class="text-[10px] text-outline uppercase tracking-tight">Татарстан</p>
+          </div>
+        </div>
+        <div
+          class="relative h-40 rounded-xl overflow-hidden group cursor-pointer active:scale-95 transition-all duration-400 md:col-span-1 col-span-2">
+          <img
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcW81bPJx_GQ0h6ivyIdGFZz_YcSX4vGDcFe6M7PpMIBXxK3trs0lqo4TsiLBKlbL-GFoNdw7OaiVONJwiA9N55U207OHDYhmO4fauHmgT163GAenKB4lcJ-SdC4HToEqTpLaW236jZB9s52aFniG2F8b1JvlQwU5NovwyuXi92DvZhGjKX8UqjgNGvb86iipRiekSST-sr8qexrRROKXEXVtR2MYPiVPuxSUARaimIxXrnF0zQW5dt2F9R41_kYB3vsxjUDxvMA8"
+            alt="Грозный" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+          <div class="absolute bottom-4 left-4">
+            <p class="font-bold text-on-surface">Грозный</p>
+            <p class="text-[10px] text-outline uppercase tracking-tight">Чечня</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="space-y-6">
+      <h3 class="text-sm font-bold uppercase tracking-widest text-secondary">Настройки расчетов</h3>
+      <div class="space-y-4">
+        <div
+          class="glass-card rounded-xl p-6 flex items-center justify-between group hover:bg-[#004d40]/20 transition-all duration-400">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span
+                class="material-symbols-outlined">settings_suggest</span></div>
+            <div>
+              <p class="font-bold text-on-surface">Метод расчета</p>
+              <p class="text-sm text-outline">Всемирная Мусульманская Лига</p>
+            </div>
+          </div>
+          <span
+            class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+        </div>
+        <div class="glass-card rounded-xl p-6 space-y-6">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary"><span
+                class="material-symbols-outlined">history_edu</span></div>
+            <div>
+              <p class="font-bold text-on-surface">Мазхаб (Аср)</p>
+              <p class="text-sm text-outline">Метод вычисления времени молитвы</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <button
+              class="bg-primary/20 border border-primary/30 text-primary py-3 rounded-full font-bold text-sm transition-all active:scale-95">Стандартный</button>
+            <button
+              class="bg-surface-container-low border border-outline-variant/15 text-outline py-3 rounded-full font-bold text-sm hover:text-on-surface transition-all active:scale-95">Ханафитский</button>
+          </div>
+        </div>
+        <div class="glass-card rounded-xl p-6 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary"><span
+                class="material-symbols-outlined">north</span></div>
+            <div>
+              <p class="font-bold text-on-surface">Высокие широты</p>
+              <p class="text-sm text-outline">Автоматическая коррекция</p>
+            </div>
+          </div>
+          <div class="w-12 h-6 bg-primary-container rounded-full relative p-1 cursor-pointer">
+            <div class="w-4 h-4 bg-primary rounded-full absolute right-1"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="pt-4 pb-8">
+      <button
+        class="w-full py-5 rounded-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-extrabold text-lg shadow-[0_10px_30px_rgba(148,211,193,0.2)] active:scale-95 transition-all duration-400">Сохранить
+        изменения</button>
+    </div>
+  </div>
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <nav
+    class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-4 pb-8 px-4 bg-[#001713]/60 backdrop-blur-md rounded-t-[3rem] border-t border-[#94d3c1]/10 shadow-[0_-10px_40px_rgba(0,23,19,0.5)]">
+    <button onclick="showPage('home')" id="nav-home"
+      class="flex flex-col items-center justify-center transition-all duration-300 active:scale-90">
+      <span class="material-symbols-outlined nav-icon">home</span>
+      <span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-widest mt-1">Home</span>
+    </button>
+    <button onclick="showPage('qibla')" id="nav-qibla"
+      class="flex flex-col items-center justify-center transition-all duration-300 active:scale-90">
+      <span class="material-symbols-outlined nav-icon">explore</span>
+      <span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-widest mt-1">Qibla</span>
+    </button>
+    <button onclick="showPage('notifications')" id="nav-notifications"
+      class="flex flex-col items-center justify-center transition-all duration-300 active:scale-90">
+      <span class="material-symbols-outlined nav-icon">notifications</span>
+      <span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-widest mt-1">Notifications</span>
+    </button>
+    <button onclick="showPage('settings')" id="nav-settings"
+      class="flex flex-col items-center justify-center transition-all duration-300 active:scale-90">
+      <span class="material-symbols-outlined nav-icon">settings</span>
+      <span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-widest mt-1">Settings</span>
+    </button>
+  </nav>
+
+  <script>
+    const pages = ['home', 'qibla', 'notifications', 'settings'];
+    const icons = { home: 'home', qibla: 'explore', notifications: 'notifications', settings: 'settings' };
+
+    function showPage(name) {
+      pages.forEach(p => {
+        document.getElementById('page-' + p).classList.remove('active');
+        const nav = document.getElementById('nav-' + p);
+        const icon = nav.querySelector('.nav-icon');
+        nav.style.color = '#89938f';
+        nav.style.opacity = '0.7';
+        nav.style.transform = 'scale(1)';
+        icon.style.fontVariationSettings = "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+      });
+
+      document.getElementById('page-' + name).classList.add('active');
+      window.scrollTo(0, 0);
+
+      const activeNav = document.getElementById('nav-' + name);
+      const activeIcon = activeNav.querySelector('.nav-icon');
+      activeNav.style.color = '#e9c349';
+      activeNav.style.opacity = '1';
+      activeNav.style.transform = 'scale(1.1)';
+      activeIcon.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+
+      // header subtitle only on home
+      document.getElementById('header-subtitle').style.display = name === 'home' ? 'block' : 'none';
+    }
+
+    // Init
+    showPage('home');
+  </script>
+</body>
+
+</html>

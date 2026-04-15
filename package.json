@@ -1,0 +1,12 @@
+{
+  "name": "al-oasis-prayer",
+  "version": "1.0.0",
+  "description": "Islamic Prayer App",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}
